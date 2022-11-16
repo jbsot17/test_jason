@@ -7,9 +7,9 @@ from json import dumps
 sheet = r'C:\Users\jbsot\Documents\Curso Python\Ejercicios\jholder.xlsx'
 
 web = requests.get('https://jsonplaceholder.typicode.com/users')
-
 data = web.json() #* le doy formato json
 n_data = dumps(data, indent= 4)
+
 
 def crear_libro(): #! create
     libro = Workbook() #! creamos el archivo de excel 
@@ -23,10 +23,11 @@ def crear_libro(): #! create
 
 
 def agregar_datos(): #! update
-    libro = load_workbook(filename= sheet)
+    libro = load_workbook(filename= sheet) #* abrimos el libro 
     hoja = libro['JsonHolder']  #* se puede indicar de igual forma como libro.active
-    
-    hoja.append(libro)
+    for datos in data: #* realizamos un for para recorrer las lista que traemos con el get 
+        hoja.append([datos['id'], datos['name'], datos['email'], datos['phone'] , datos['website']]) #* con .append cargados los datos que necesitamos 
+        #* indicando el key
     libro.save(filename= sheet)
     libro.close()
 
@@ -38,33 +39,16 @@ def agregar_datos(): #! update
 
 
 
+
+
 #### de manera local #####
 
-# TODO: git tiene tres estados working - staging - repository 
-
-#* git init "nombre repositorio"
-
-#* git clone #trae un repositorio externo 
-
-#* git add "nombre del archivo" # agrega archivo para el commit 
-
-#* git add . #agrega todos los archivos que tengamos en el repositorio 
-
-#* git commit -m "comentario obligatorio"
-
-#* git status #muestra como se encuentra el status de los archivos dentro del repo 
-
-#* git log --oneline # me muestra los log del archivo. para poder volver a un commit anterior. 
-
-#* git checkout 'id' # volvemos a una rama especifica del reositorio 
-
-#* git master # regresamos a la ultima modificacion realizada en el rerpositorio 
 
 #print(data[0]['id'])
 
 
 #for keys in data:
 #   for valor in keys:
-        
+
 
 
